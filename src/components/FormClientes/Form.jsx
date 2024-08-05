@@ -5,7 +5,6 @@ import {
     ModalBody,
     Select,
     SelectItem,
-    Button,
 } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 
@@ -113,9 +112,7 @@ export default function Form({ isOpen, onOpenChange }) {
                                         </p>
                                     )}
                                 </div>
-                                <Button color="primary" variant="bordered">
-                                    Registrar
-                                </Button>
+                                <button className="btn-blue">Registrar</button>
                             </form>
                         </ModalBody>
                     </>

@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { useState } from "react";
+import ClienteDetail from "./pages/Clientes/ClienteDetail";
 
 function App() {
     const { pathname } = useLocation();
@@ -64,6 +65,15 @@ function App() {
                             element={
                                 <ProtectedRoutes>
                                     <Clientes />
+                                </ProtectedRoutes>
+                            }
+                        />
+                        <Route
+                            exac
+                            path="/clientes/:id"
+                            element={
+                                <ProtectedRoutes>
+                                    <ClienteDetail />
                                 </ProtectedRoutes>
                             }
                         />

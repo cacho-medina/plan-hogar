@@ -79,6 +79,7 @@ export default function TablaClientes({ columns, users }) {
 
     return (
         <Table
+            aria-label="Tabla con lista de clientes"
             bottomContent={
                 <div className="flex w-full justify-center">
                     <Pagination
