@@ -28,12 +28,20 @@ function Navbar() {
                         htmlFor="sidebar-active"
                         className="inline-block burger md:hidden"
                     >
-                        <img src="/menu.svg" alt="" className="w-10" />
+                        <img
+                            src="/menu.svg"
+                            alt=""
+                            className="w-10 cursor-pointer"
+                        />
                     </label>
                 </div>
                 <nav className="peer-checked:right-0 transition-all duration-300 ease-out fixed top-0 bottom-0 -right-full z-50 w-2/3 sm:w-1/2 bg-gris py-6 pl-4 md:hidden shadow-2xl">
                     <label htmlFor="sidebar-active" className="md:hidden">
-                        <img src="/close.svg" alt="" className="w-8" />
+                        <img
+                            src="/close.svg"
+                            alt=""
+                            className="w-8 cursor-pointer"
+                        />
                     </label>
                     <ul className="flex flex-col items-start justify-center gap-8 text-gris-oscuro font-semibold py-10 text-xl h-full">
                         <li className="px-4 py-2">

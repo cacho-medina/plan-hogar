@@ -1,6 +1,6 @@
 function Planes() {
     return (
-        <div className="content">
+        <div className="content grow">
             <h2>Planes</h2>
         </div>
     );

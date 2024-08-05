@@ -4,12 +4,24 @@
 
 @layer components {
     .btn-red {
-        @apply bg-red-300 p-2 w-full rounded-xl font-bold text-white transition-colors hover:bg-red-600;
+        @apply bg-red-400 p-2 w-full rounded-xl font-bold text-white transition-colors hover:bg-red-600;
+    }
+    .btn-blue {
+        @apply outline outline-blue-600 p-2 rounded-lg font-bold text-blue-500 transition-colors hover:bg-blue-600 hover:text-white;
     }
     .input-login {
-        @apply p-4 outline outline-gris rounded-xl focus:outline-gris-oscuro;
+        @apply p-4 outline outline-gris rounded-xl focus:outline-gris-oscuro w-full;
     }
     .content {
-        @apply bg-white md:p-6 h-full md:rounded-l-2xl;
+        @apply bg-white md:rounded-l-2xl flex flex-col h-full;
+    }
+    .card {
+        @apply basis-72 md:basis-[350px] grow rounded-xl shadow-xl aspect-video max-h-64 flex flex-col items-center justify-center text-white;
+    }
+    .info {
+        @apply font-bold text-2xl;
+    }
+    .input-form {
+        @apply p-4 bg-gris rounded-xl focus:outline-gris-oscuro w-full;
     }
 }
