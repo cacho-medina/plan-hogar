@@ -20,7 +20,7 @@ function App() {
     return (
         <>
             {/* {pathname !== "/login" && <Navbar />} */}
-            <Navbar />
+            <Navbar setUserLogged={setUserLogged} />
             <main className="grow bg-gris flex">
                 {pathname !== "/login" && (
                     <Aside setUserLogged={setUserLogged} />

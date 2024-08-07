@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
-function Navbar() {
+import { NavLink, Link } from "react-router-dom";
+import { logout } from "../helpers/logout";
+import { useState } from "react";
+
+function Navbar({ setUserLogged }) {
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <header>
-            <div className="bg-gris py-5 md:px-8 flex items-center justify-between">
+            <div className="bg-gris py-4 md:px-8 flex items-center justify-between">
                 <div className="px-4">
                     <Link
                         to="/"
@@ -18,36 +22,41 @@ function Navbar() {
                         </h2>
                     </Link>
                 </div>
-                <input
-                    type="checkbox"
-                    id="sidebar-active"
-                    className="hidden peer"
-                />
-                <div className="flex justify-end px-4 py-2 md:hidden">
-                    <label
-                        htmlFor="sidebar-active"
-                        className="inline-block burger md:hidden"
-                    >
-                        <img
-                            src="/menu.svg"
-                            alt=""
-                            className="w-10 cursor-pointer"
-                        />
-                    </label>
-                </div>
-                <nav className="peer-checked:right-0 transition-all duration-300 ease-out fixed top-0 bottom-0 -right-full z-50 w-2/3 sm:w-1/2 bg-gris py-6 pl-4 md:hidden shadow-2xl">
-                    <label htmlFor="sidebar-active" className="md:hidden">
-                        <img
-                            src="/close.svg"
-                            alt=""
-                            className="w-8 cursor-pointer"
-                        />
-                    </label>
-                    <ul className="flex flex-col items-start justify-center gap-8 text-gris-oscuro font-semibold py-10 text-xl h-full">
-                        <li className="px-4 py-2">
-                            <Link
+                <input type="checkbox" id="sidebar-active" className="hidden" />
+                <button onClick={() => setIsOpen(true)}>
+                    <div className="flex justify-end px-4 py-2 md:hidden">
+                        <label
+                            htmlFor="sidebar-active"
+                            className="inline-block burger md:hidden"
+                        >
+                            <img
+                                src="/menu.svg"
+                                alt=""
+                                className="w-10 cursor-pointer"
+                            />
+                        </label>
+                    </div>
+                </button>
+                <nav
+                    className={`${
+                        isOpen && "right-0"
+                    } transition-all duration-300 ease-out fixed top-0 bottom-0 -right-full z-50 w-2/3 sm:w-2/5 bg-gris py-6 px-3 sm:px-6 md:hidden shadow-2xl`}
+                >
+                    <button onClick={() => setIsOpen(false)}>
+                        <label htmlFor="sidebar-active" className="md:hidden">
+                            <img
+                                src="/close.svg"
+                                alt=""
+                                className="w-8 cursor-pointer"
+                            />
+                        </label>
+                    </button>
+                    <ul className="flex flex-col items-stretch justify-center gap-8 text-gris-oscuro font-semibold py-10 text-xl h-full">
+                        <li className="navbar">
+                            <NavLink
                                 to="/clientes"
-                                className="flex items-center gap-2"
+                                className="barlink"
+                                onClick={() => setIsOpen(false)}
                             >
                                 <img
                                     src="/utils/cliente.svg"
@@ -57,12 +66,13 @@ function Navbar() {
                                 <h4 className="text-gris-oscuro text-2xl sm:text-3xl">
                                     Clientes
                                 </h4>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li className="px-4 py-2">
-                            <Link
+                        <li className="navbar">
+                            <NavLink
                                 to="/planes"
-                                className="flex items-center gap-2"
+                                className="barlink"
+                                onClick={() => setIsOpen(false)}
                             >
                                 <img
                                     src="/utils/planes.svg"
@@ -72,12 +82,13 @@ function Navbar() {
                                 <h4 className="text-gris-oscuro text-2xl sm:text-3xl">
                                     Planes
                                 </h4>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li className="px-4 py-2">
-                            <Link
+                        <li className="navbar">
+                            <NavLink
                                 to="/productos"
-                                className="flex items-center gap-2"
+                                className="barlink"
+                                onClick={() => setIsOpen(false)}
                             >
                                 <img
                                     src="/utils/productos.svg"
@@ -87,10 +98,16 @@ function Navbar() {
                                 <h4 className="text-gris-oscuro text-2xl sm:text-3xl">
                                     Productos
                                 </h4>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li className="px-6 mt-auto">
-                            <button className="text-white p-2 px-8 w-full rounded-xl font-bold  bg-red-600">
+                        <li className="mt-auto">
+                            <button
+                                className="text-white p-2 px-8 w-full rounded-xl font-bold  bg-red-600"
+                                onClick={() => {
+                                    logout(setUserLogged);
+                                    setIsOpen(false);
+                                }}
+                            >
                                 <div className="flex items-center gap-2 justify-center">
                                     <img
                                         src="/salir.svg"

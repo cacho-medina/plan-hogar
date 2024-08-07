@@ -8,11 +8,17 @@ import {
     TableRow,
     TableCell,
     Tooltip,
+    Chip,
     Pagination,
 } from "@nextui-org/react";
-import { EditIcon } from "../../assets/icons/EditIcon";
-import { DeleteIcon } from "../../assets/icons/DeleteIcon";
+/* import { EditIcon } from "../../assets/icons/EditIcon";
+import { DeleteIcon } from "../../assets/icons/DeleteIcon"; */
 import { EyeIcon } from "../../assets/icons/EyeIcon";
+
+const statusColorMap = {
+    Activo: "success",
+    Inactivo: "danger",
+};
 
 export default function TablaClientes({ columns, users }) {
     const renderCell = React.useCallback((user, columnKey) => {
@@ -35,6 +41,17 @@ export default function TablaClientes({ columns, users }) {
                         </p>
                     </div>
                 );
+            /* case "estado":
+                return (
+                    <Chip
+                        className="capitalize hidden md:block"
+                        color={statusColorMap[user.estado]}
+                        size="sm"
+                        variant="flat"
+                    >
+                        {cellValue}
+                    </Chip>
+                ); */
             case "actions":
                 return (
                     <div className="relative flex justify-center items-center gap-2">
@@ -66,7 +83,7 @@ export default function TablaClientes({ columns, users }) {
     }, []);
 
     const [page, setPage] = React.useState(1);
-    const rowsPerPage = 5;
+    const rowsPerPage = 8;
 
     const pages = Math.ceil(users.length / rowsPerPage);
 
@@ -115,15 +132,3 @@ export default function TablaClientes({ columns, users }) {
         </Table>
     );
 }
-
-/* case "estado":
-                return (
-                    <Chip
-                        className="capitalize"
-                        color={statusColorMap[user.estado]}
-                        size="sm"
-                        variant="flat"
-                    >
-                        {cellValue}
-                    </Chip>
-                ); */

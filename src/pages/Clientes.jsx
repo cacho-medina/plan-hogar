@@ -11,6 +11,10 @@ const columns = [
         key: "dni",
         label: "Dni",
     },
+    /* {
+        key: "estado",
+        label: "Estado",
+    }, */
     {
         key: "actions",
         label: "Ver detalle",
@@ -85,13 +89,13 @@ function Clientes() {
                 </h2>
             </div>
             <div className="grow px-2 md:px-6">
-                <div className="flex items-center justify-center border-b py-8 mb-10">
+                <div className="flex items-center justify-center border-b py-8">
                     <button onClick={onOpen} className="btn-blue text-2xl">
                         Registrar Cliente
                     </button>
                     <Form isOpen={isOpen} onOpenChange={onOpenChange} />
                 </div>
-                <div className="md:max-w-[800px] md:mx-auto">
+                <div className="max-w-[1050px] lg:mx-auto my-6">
                     <TablaClientes columns={columns} users={rows} />
                 </div>
             </div>
