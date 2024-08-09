@@ -11,9 +11,10 @@ function Login({ setUserLogged }) {
         reset,
     } = useForm();
     const navigate = useNavigate();
-    const onSubmit = (data) => {
-        const res = login(data);
-        if (!res) {
+    const onSubmit = async (data) => {
+        const res = await login(data);
+        console.log(await res.json());
+        if (!res.ok) {
             Swal.fire({
                 icon: "error",
                 title: "Credenciales incorrectas",

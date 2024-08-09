@@ -1,26 +1,15 @@
-const user = {
-    username: "cacho-medina",
-    password: "leo10MESSI.",
-};
+const api_usuarios = import.meta.env.VITE_API_USERS;
 
-export const login = (usuario) => {
+export const login = async (usuario) => {
     try {
-        /*  const res = fetch(`${api_usuarios}/auth`, {
+        const res = await fetch(`${api_usuarios}/auth`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(usuario),
         });
-        return res; */
-        if (
-            usuario.username === user.username &&
-            usuario.password === user.password
-        ) {
-            return user;
-        } else {
-            return false;
-        }
+        return res;
     } catch (error) {
         console.error(error);
     }
