@@ -11,10 +11,6 @@ const columns = [
         key: "dni",
         label: "Dni",
     },
-    /* {
-        key: "estado",
-        label: "Estado",
-    }, */
     {
         key: "actions",
         label: "Ver detalle",

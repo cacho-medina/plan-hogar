@@ -13,7 +13,8 @@ function Login({ setUserLogged }) {
     const navigate = useNavigate();
     const onSubmit = async (data) => {
         const res = await login(data);
-        console.log(await res.json());
+        const user = await res.json();
+        console.log(user);
         if (!res.ok) {
             Swal.fire({
                 icon: "error",
@@ -23,10 +24,14 @@ function Login({ setUserLogged }) {
             sessionStorage.setItem(
                 "usuario",
                 JSON.stringify({
-                    username: res.username,
+                    email: user.email,
+                    username: user.username,
+                    id: user.id,
+                    isAdmin: user.isAdmin,
+                    token: user.token,
                 })
             );
-            setUserLogged(res);
+            setUserLogged(user);
             Swal.fire({
                 icon: "success",
                 title: "Bienvenido",
