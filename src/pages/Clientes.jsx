@@ -1,82 +1,30 @@
-import Form from "../components/FormClientes/Form";
+import FormCliente from "../components/Formularios/FormCliente";
 import { useDisclosure } from "@nextui-org/react";
 import TablaClientes from "../components/ui/TablaClientes";
+import useStore from "../store/useStore";
+import { useEffect } from "react";
 
 const columns = [
     {
         key: "nombre",
-        label: "Nombre",
+        label: "Cliente",
     },
     {
-        key: "dni",
-        label: "Dni",
+        key: "documento",
+        label: "Documento",
     },
     {
         key: "actions",
         label: "Ver detalle",
     },
 ];
-const rows = [
-    {
-        key: "1",
-        nombre: "Tony Reichert",
-        dni: "42718264",
-        plan: "plan 1",
-        estado: "Activo",
-    },
-    {
-        key: "2",
-        nombre: "Julieta Medina",
-        dni: "22692060",
-        plan: "plan 6",
-        estado: "Activo",
-    },
-    {
-        key: "3",
-        nombre: "Leo Messi",
-        dni: "42718264",
-        plan: "plan 1",
-        estado: "Inactivo",
-    },
-    {
-        key: "4",
-        nombre: "Joaquin Medina",
-        dni: "42718264",
-        plan: "plan 2",
-        estado: "Activo",
-    },
-    {
-        key: "7",
-        nombre: "Tony Reichert",
-        dni: "42718264",
-        plan: "plan 1",
-        estado: "Activo",
-    },
-    {
-        key: "20",
-        nombre: "Cande",
-        dni: "22692060",
-        plan: "plan 6",
-        estado: "Activo",
-    },
-    {
-        key: "30",
-        nombre: "CR7",
-        dni: "42718264",
-        plan: "plan 1",
-        estado: "Inactivo",
-    },
-    {
-        key: "40",
-        nombre: "Joaquin Mesina",
-        dni: "42718264",
-        plan: "plan 2",
-        estado: "Activo",
-    },
-];
 
 function Clientes() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+    const { clientes, obtenerClientes } = useStore();
+    useEffect(() => {
+        obtenerClientes();
+    }, []);
     return (
         <div className="content">
             <div className="bg-blue-500 py-10 md:rounded-tl-2xl">
@@ -89,10 +37,14 @@ function Clientes() {
                     <button onClick={onOpen} className="btn-blue text-2xl">
                         Registrar Cliente
                     </button>
-                    <Form isOpen={isOpen} onOpenChange={onOpenChange} />
+                    <FormCliente
+                        isOpen={isOpen}
+                        onOpenChange={onOpenChange}
+                        onClose={onClose}
+                    />
                 </div>
-                <div className="max-w-[1050px] lg:mx-auto my-6">
-                    <TablaClientes columns={columns} users={rows} />
+                <div className="max-w-[700px] lg:mx-auto my-6">
+                    <TablaClientes columns={columns} users={clientes} />
                 </div>
             </div>
         </div>

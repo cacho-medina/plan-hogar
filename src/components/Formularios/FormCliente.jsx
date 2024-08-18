@@ -7,17 +7,38 @@ import {
     SelectItem,
 } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
+import useStore from "../../store/useStore";
+import { postClientes } from "../../store/actions/actions";
+import Swal from "sweetalert2";
 
-export default function Form({ isOpen, onOpenChange }) {
+export default function FormCliente({ isOpen, onOpenChange, onClose }) {
+    const { obtenerClientes } = useStore();
     const {
-        reset,
         formState: { errors },
         handleSubmit,
         register,
+        reset,
     } = useForm();
-
-    const onSubmit = (data) => {
-        console.log(data);
+    const planes = useStore((state) => state.planes);
+    const planesActivos = planes.filter((plan) => plan.isActive);
+    const onSubmit = async (data) => {
+        const res = await postClientes(data);
+        if (!res.ok) {
+            const error = await res.json();
+            Swal.fire({
+                title: "Error",
+                text: `${error.message}`,
+                icon: "error",
+            });
+        } else {
+            Swal.fire({
+                title: "Listo!",
+                text: "Cliente registrado con exito!",
+                icon: "success",
+            });
+            obtenerClientes();
+            onClose();
+        }
         reset();
     };
 
@@ -46,7 +67,7 @@ export default function Form({ isOpen, onOpenChange }) {
                                         type="text"
                                         placeholder="Nombre completo..."
                                         className="input-form"
-                                        {...register("nombreCompleto", {
+                                        {...register("nombre", {
                                             required:
                                                 "ingrese el nombre y apellido",
                                             minLength: {
@@ -55,9 +76,9 @@ export default function Form({ isOpen, onOpenChange }) {
                                                     "Debe ingresar como minimo 5 caracteres",
                                             },
                                             maxLength: {
-                                                value: 40,
+                                                value: 100,
                                                 message:
-                                                    "Debe ingresar como maximo 40 caracteres",
+                                                    "Debe ingresar como maximo 100 caracteres",
                                             },
                                         })}
                                     />
@@ -75,12 +96,12 @@ export default function Form({ isOpen, onOpenChange }) {
                                         {...register("documento", {
                                             required: "ingrese el documento",
                                             minLength: {
-                                                value: 5,
+                                                value: 7,
                                                 message:
                                                     "Debe ingresar como minimo 7 caracteres",
                                             },
                                             maxLength: {
-                                                value: 40,
+                                                value: 8,
                                                 message:
                                                     "Debe ingresar como maximo 8 caracteres",
                                             },
@@ -95,16 +116,15 @@ export default function Form({ isOpen, onOpenChange }) {
                                 <div>
                                     <Select
                                         label="Seleccione un plan"
-                                        {...register("plan", {
+                                        {...register("idPlan", {
                                             required: "seleccione un plan",
                                         })}
                                     >
-                                        <SelectItem key="plan 1">
-                                            plan 1
-                                        </SelectItem>
-                                        <SelectItem key="plan 2">
-                                            plan 2
-                                        </SelectItem>
+                                        {planesActivos.map((item) => (
+                                            <SelectItem key={item.id}>
+                                                {item.nombre}
+                                            </SelectItem>
+                                        ))}
                                     </Select>
                                     {errors.plan && (
                                         <p className="text-red-500 font-semibold">

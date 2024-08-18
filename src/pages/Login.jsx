@@ -13,14 +13,14 @@ function Login({ setUserLogged }) {
     const navigate = useNavigate();
     const onSubmit = async (data) => {
         const res = await login(data);
-        const user = await res.json();
-        console.log(user);
+        console.log(res);
         if (!res.ok) {
             Swal.fire({
                 icon: "error",
                 title: "Credenciales incorrectas",
             });
         } else {
+            const user = await res.json();
             sessionStorage.setItem(
                 "usuario",
                 JSON.stringify({

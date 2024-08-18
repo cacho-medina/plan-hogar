@@ -24,7 +24,7 @@ function Home() {
                     to="/planes"
                     className="card bg-cyan-500 transition-colors hover:bg-cyan-400"
                 >
-                    <div>
+                    <div className="flex flex-col items-center">
                         <h2 className="info">Planes</h2>
                     </div>
                 </Link>

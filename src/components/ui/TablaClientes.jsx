@@ -10,8 +10,6 @@ import {
     Tooltip,
     Pagination,
 } from "@nextui-org/react";
-/* import { EditIcon } from "../../assets/icons/EditIcon";
-import { DeleteIcon } from "../../assets/icons/DeleteIcon"; */
 import { EyeIcon } from "../../assets/icons/EyeIcon";
 
 export default function TablaClientes({ columns, users }) {
@@ -27,11 +25,11 @@ export default function TablaClientes({ columns, users }) {
                         </p>
                     </div>
                 );
-            case "dni":
+            case "Dni":
                 return (
                     <div>
                         <p className="text-bold text-center md:text-lg capitalize text-default-400 cursor-default">
-                            {user.dni}
+                            {user.documento}
                         </p>
                     </div>
                 );
@@ -42,22 +40,12 @@ export default function TablaClientes({ columns, users }) {
                             content="Detalle"
                             className="flex items-center gap-2"
                         >
-                            <Link to={`/clientes/${user.key}`}>
+                            <Link to={`/clientes/${user.id}`}>
                                 <span className="text-lg md:text-xl text-default-400 cursor-pointer active:opacity-50 transition-colors hover:text-blue-500 hover:font-bold">
                                     <EyeIcon />
                                 </span>
                             </Link>
                         </Tooltip>
-                        {/* <Tooltip content="Editar">
-                            <span className="text-lg md:text-xl text-default-400 cursor-pointer active:opacity-50">
-                                <EditIcon />
-                            </span>
-                        </Tooltip>
-                        <Tooltip color="danger" content="Borrar">
-                            <span className="text-lg md:text-xl text-danger cursor-pointer active:opacity-50">
-                                <DeleteIcon />
-                            </span>
-                        </Tooltip> */}
                     </div>
                 );
             default:
@@ -101,7 +89,10 @@ export default function TablaClientes({ columns, users }) {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody items={items}>
+            <TableBody
+                items={items}
+                emptyContent={"No hay clientes registrados"}
+            >
                 {(item) => (
                     <TableRow key={item.key}>
                         {(columnKey) => (

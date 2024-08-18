@@ -11,6 +11,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { useState } from "react";
 import ClienteDetail from "./pages/Clientes/ClienteDetail";
+import PlanDetail from "./pages/Planes/PlanDetail";
 
 function App() {
     const { pathname } = useLocation();
@@ -47,6 +48,15 @@ function App() {
                             element={
                                 <ProtectedRoutes>
                                     <Planes />
+                                </ProtectedRoutes>
+                            }
+                        />
+                        <Route
+                            exac
+                            path="/plan/:id"
+                            element={
+                                <ProtectedRoutes>
+                                    <PlanDetail />
                                 </ProtectedRoutes>
                             }
                         />

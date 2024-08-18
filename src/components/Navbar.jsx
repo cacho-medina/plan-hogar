@@ -32,7 +32,7 @@ function Navbar({ setUserLogged }) {
                             <img
                                 src="/menu.svg"
                                 alt=""
-                                className="w-10 cursor-pointer"
+                                className="w-10 cursor-pointer duration-400 active:rotate-180"
                             />
                         </label>
                     </div>
@@ -40,14 +40,14 @@ function Navbar({ setUserLogged }) {
                 <nav
                     className={`${
                         isOpen && "right-0"
-                    } transition-all duration-300 ease-out fixed top-0 bottom-0 -right-full z-50 w-2/3 sm:w-2/5 bg-gris py-6 px-3 sm:px-6 md:hidden shadow-2xl`}
+                    } transition-all delay-200 duration-300 ease-out fixed top-0 bottom-0 -right-full z-50 w-2/3 sm:w-2/5 bg-gris py-6 px-3 sm:px-6 md:hidden shadow-2xl`}
                 >
                     <button onClick={() => setIsOpen(false)}>
                         <label htmlFor="sidebar-active" className="md:hidden">
                             <img
                                 src="/close.svg"
                                 alt=""
-                                className="w-8 cursor-pointer"
+                                className="w-8 cursor-pointer duration-400 active:rotate-180"
                             />
                         </label>
                     </button>
