@@ -2,14 +2,11 @@ import useStore from "../store/useStore";
 import FormPlan from "../components/Formularios/FormPlan";
 import { useDisclosure } from "@nextui-org/react";
 import Row from "../components/ui/Plan/Row";
-import { useEffect } from "react";
 
 function Planes() {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-    const { planes, obtenerPlanes } = useStore();
-    useEffect(() => {
-        obtenerPlanes();
-    }, []);
+    const { planes } = useStore();
+
     return (
         <>
             <FormPlan

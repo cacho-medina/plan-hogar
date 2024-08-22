@@ -54,7 +54,7 @@ function Navbar({ setUserLogged }) {
                     <ul className="flex flex-col items-stretch justify-center gap-8 text-gris-oscuro font-semibold py-10 text-xl h-full">
                         <li className="navbar">
                             <NavLink
-                                to="/clientes"
+                                to="/"
                                 className="barlink"
                                 onClick={() => setIsOpen(false)}
                             >

@@ -5,13 +5,13 @@ import Aside from "./components/Aside";
 import Home from "./pages/Home";
 import Planes from "./pages/Planes";
 import Productos from "./pages/Productos";
-import Clientes from "./pages/Clientes";
 import Login from "./pages/Login";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { useState } from "react";
 import ClienteDetail from "./pages/Clientes/ClienteDetail";
 import PlanDetail from "./pages/Planes/PlanDetail";
+import Registro from "./pages/Pagos/Registro";
 
 function App() {
     const { pathname } = useLocation();
@@ -71,19 +71,19 @@ function App() {
                         />
                         <Route
                             exac
-                            path="/clientes"
+                            path="/clientes/:id"
                             element={
                                 <ProtectedRoutes>
-                                    <Clientes />
+                                    <ClienteDetail />
                                 </ProtectedRoutes>
                             }
                         />
                         <Route
                             exac
-                            path="/clientes/:id"
+                            path="/pago/registrar"
                             element={
                                 <ProtectedRoutes>
-                                    <ClienteDetail />
+                                    <Registro />
                                 </ProtectedRoutes>
                             }
                         />

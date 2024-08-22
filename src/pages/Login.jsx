@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { login } from "../helpers/auth/auth";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +12,9 @@ function Login({ setUserLogged }) {
         reset,
     } = useForm();
     const navigate = useNavigate();
+    const [ver, setVer] = useState(false);
     const onSubmit = async (data) => {
         const res = await login(data);
-        console.log(res);
         if (!res.ok) {
             Swal.fire({
                 icon: "error",
@@ -82,18 +83,48 @@ function Login({ setUserLogged }) {
                         )}
                     </div>
                     <div>
-                        <input
-                            type="password"
-                            placeholder="Ingresa tu contraseña..."
-                            className="input-login"
-                            {...register("password", {
-                                required: "ingrese su contraseña",
-                                minLength: {
-                                    value: 8,
-                                    message: "Ingrese como minimo 8 caracteres",
-                                },
-                            })}
-                        />
+                        <div className="relative">
+                            <input
+                                type={ver ? "text" : "password"}
+                                placeholder="Ingresa tu contraseña..."
+                                className="input-login"
+                                {...register("password", {
+                                    required: "ingrese su contraseña",
+                                    minLength: {
+                                        value: 8,
+                                        message:
+                                            "Ingrese como minimo 8 caracteres",
+                                    },
+                                    maxLength: {
+                                        value: 16,
+                                        message:
+                                            "ingrese un maximo de 16 caracteres",
+                                    },
+                                    pattern: {
+                                        value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,16}$/,
+                                        message:
+                                            "la contraseña debe tener al menos una letra minuscula, una letra mayuscula, un numero y un caracter especial",
+                                    },
+                                })}
+                            />
+                            <div className="absolute top-3 right-2 transition hover:scale-105">
+                                <label className="cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        id="verPassword"
+                                        hidden
+                                        onChange={() => setVer(!ver)}
+                                    />
+                                    <span>
+                                        <img
+                                            src="/view.svg"
+                                            alt="seleccione para ver contraseña"
+                                            className="w-10"
+                                        />
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
                         {errors.password && (
                             <p className="text-red-500 font-semibold">
                                 {errors.password.message}

@@ -12,7 +12,7 @@ import { postClientes } from "../../store/actions/actions";
 import Swal from "sweetalert2";
 
 export default function FormCliente({ isOpen, onOpenChange, onClose }) {
-    const { obtenerClientes } = useStore();
+    const { obtenerClientes, obtenerPagos } = useStore();
     const {
         formState: { errors },
         handleSubmit,
@@ -37,6 +37,7 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
                 icon: "success",
             });
             obtenerClientes();
+            obtenerPagos();
             onClose();
         }
         reset();
@@ -58,6 +59,9 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
                             Registro de nuevo cliente
                         </ModalHeader>
                         <ModalBody>
+                            <p className="text-slate-600">
+                                Registre el cliente y su primer pago*
+                            </p>
                             <form
                                 className="flex flex-col justify-center gap-4 my-4"
                                 onSubmit={handleSubmit(onSubmit)}
@@ -129,6 +133,64 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
                                     {errors.plan && (
                                         <p className="text-red-500 font-semibold">
                                             {errors.plan.message}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Ingresa el monto..."
+                                        className="input-form"
+                                        {...register("monto", {
+                                            required:
+                                                "ingrese el monto de la primera cuota",
+                                            min: {
+                                                value: 1000,
+                                                message:
+                                                    "El precio debe ser mayor o igual a 1000",
+                                            },
+                                        })}
+                                    />
+                                    {errors.monto && (
+                                        <p className="text-red-500 font-semibold">
+                                            {errors.monto.message}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <Select
+                                        label="Seleccione medio de pago"
+                                        {...register("medio", {
+                                            required:
+                                                "ingrese el medio de pago, transferencia o efectivo",
+                                        })}
+                                    >
+                                        <SelectItem key="Efectivo">
+                                            Efectivo
+                                        </SelectItem>
+                                        <SelectItem key="Transferencia">
+                                            Transferencia
+                                        </SelectItem>
+                                    </Select>
+                                    {errors.medio && (
+                                        <p className="text-red-500 font-semibold">
+                                            {errors.medio.message}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Ingresa el nombre del cobrador..."
+                                        className="input-form"
+                                        {...register("cobrador", {
+                                            required:
+                                                "ingrese el nombre del cobrador",
+                                        })}
+                                    />
+                                    {errors.cobrador && (
+                                        <p className="text-red-500 font-semibold">
+                                            {errors.cobrador.message}
                                         </p>
                                     )}
                                 </div>

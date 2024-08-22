@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getPlanes, getClientes } from "./actions/actions";
+import { getPlanes, getClientes, getPagos } from "./actions/actions";
 
 const initialState = {
     planes: [],
@@ -12,6 +12,7 @@ const useStore = create((set) => ({
     ...initialState,
     obtenerPlanes: () => getPlanes(set),
     obtenerClientes: () => getClientes(set),
+    obtenerPagos: () => getPagos(set),
 }));
 
 export default useStore;

@@ -7,12 +7,14 @@ export const postClientes = async (cliente) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
             },
             body: JSON.stringify(cliente),
         });
         return res;
     } catch (error) {
         console.error(error);
+        return error;
     }
 };
 export const getClientes = async (set) => {
@@ -31,6 +33,33 @@ export const getClienteById = async (id) => {
         return data;
     } catch (error) {
         console.error(error);
+    }
+};
+//--------------------------PAGOS ACTIONS---------------------------------
+
+export const getPagos = async (set) => {
+    try {
+        const res = await fetch(`${api}/pago`);
+        const data = await res.json();
+        set({ pagos: data });
+    } catch (error) {
+        console.error(error.message);
+    }
+};
+export const postPago = async (data) => {
+    try {
+        const res = await fetch(`${api}/pago/registrar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+            body: JSON.stringify(data),
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+        return error;
     }
 };
 //--------------------------PLAN ACTIONS---------------------------------
@@ -58,6 +87,7 @@ export const postPlan = async (plan) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
             },
             body: JSON.stringify(plan),
         });
@@ -72,6 +102,7 @@ export const desactivar = async (id) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
             },
         });
         return res;
@@ -85,6 +116,7 @@ export const activar = async (id) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
             },
         });
         return res;
@@ -93,4 +125,19 @@ export const activar = async (id) => {
     }
 };
 //cambiar el back para asegurar que no se repite el nombre
-export const updatePlan = () => {};
+export const updatePlan = async (id, data) => {
+    try {
+        const res = await fetch(`${api}/plan/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+            body: JSON.stringify(data),
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+};

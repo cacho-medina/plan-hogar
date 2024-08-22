@@ -20,7 +20,7 @@ export default function TablaClientes({ columns, users }) {
             case "nombre":
                 return (
                     <div>
-                        <p className="md:text-lg font-semibold text-start sm:text-center cursor-default">
+                        <p className="font-semibold text-center cursor-default">
                             {user.nombre}
                         </p>
                     </div>
@@ -28,7 +28,7 @@ export default function TablaClientes({ columns, users }) {
             case "Dni":
                 return (
                     <div>
-                        <p className="text-bold text-center md:text-lg capitalize text-default-400 cursor-default">
+                        <p className="text-bold text-center capitalize text-default-400 cursor-default">
                             {user.documento}
                         </p>
                     </div>
@@ -54,15 +54,15 @@ export default function TablaClientes({ columns, users }) {
     }, []);
 
     const [page, setPage] = React.useState(1);
-    const rowsPerPage = 8;
+    const rowsPerPage = 5;
 
-    const pages = Math.ceil(users.length / rowsPerPage);
+    const pages = Math.ceil(users?.length / rowsPerPage);
 
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
-        return users.slice(start, end);
+        return users?.slice(start, end);
     }, [page, users]);
 
     return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getClienteById } from "../../store/actions/actions";
 import { Chip } from "@nextui-org/react";
+import TablaPagosCliente from "../../components/ui/TablaPagosCliente";
 
 const statusColorMap = {
     true: "success",
@@ -15,6 +16,7 @@ function ClienteDetail() {
         const client = await getClienteById(id);
         setCliente(client);
     };
+
     useEffect(() => {
         handleCliente();
     }, []);
@@ -26,10 +28,15 @@ function ClienteDetail() {
                 </h2>
             </div>
             <div className="grow px-2 md:px-6">
-                <div className="flex flex-col items-center justify-center gap-4 border-b py-8 md:flex-row-reverse md:justify-between">
-                    <p className="text-gray-400 text-sm cursor-default">
-                        cliente nro: {id}
-                    </p>
+                <div className="flex flex-col items-center justify-center gap-4 border-b py-8 md:flex-row md:justify-around">
+                    <Chip
+                        className="capitalize cursor-default"
+                        color={"secondary"}
+                        size="lg"
+                        variant="flat"
+                    >
+                        Documento {cliente.cliente?.documento}
+                    </Chip>
                     <Chip
                         className="capitalize cursor-default"
                         color={statusColorMap[cliente.cliente?.isActive]}
@@ -44,13 +51,11 @@ function ClienteDetail() {
                         Historial de pagos
                     </h3>
                     <div className="max-w-[700px] mx-auto">
-                        <ul className="text-center p-4 bg-gris rounded-lg shadow-small">
-                            {cliente.planes?.map((info) => (
-                                <li key={info.id} className="font-semibold">
-                                    plan {info?.nombre}
-                                </li>
-                            ))}
-                        </ul>
+                        {cliente?.planes?.map((plan, index) => {
+                            return (
+                                <TablaPagosCliente key={index} pagos={plan} />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
