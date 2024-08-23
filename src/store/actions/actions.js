@@ -62,6 +62,86 @@ export const postPago = async (data) => {
         return error;
     }
 };
+//--------------------------INVENTARIO ACTIONS---------------------------------
+
+export const getProductos = async (set) => {
+    try {
+        const res = await fetch(`${api}/inventario`);
+        const data = await res.json();
+        set({ inventario: data });
+    } catch (error) {
+        console.error(error);
+    }
+};
+export const getProductoById = async (id) => {
+    try {
+        const res = await fetch(`${api}/inventario/${id}`);
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+export const postProducto = async (data) => {
+    try {
+        const res = await fetch(`${api}/inventario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+            body: JSON.stringify(data),
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+};
+export const putProducto = async (id, data) => {
+    try {
+        const res = await fetch(`${api}/inventario/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+            body: JSON.stringify(data),
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+};
+export const desactivarProducto = async (id) => {
+    try {
+        const res = await fetch(`${api}/inventario/delete/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+    }
+};
+export const activarProducto = async (id) => {
+    try {
+        const res = await fetch(`${api}/inventario/activate/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": JSON.parse(sessionStorage.getItem("usuario")).token,
+            },
+        });
+        return res;
+    } catch (error) {
+        console.error(error);
+    }
+};
 //--------------------------PLAN ACTIONS---------------------------------
 export const getPlanes = async (set) => {
     try {
@@ -93,7 +173,7 @@ export const postPlan = async (plan) => {
         });
         return res;
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
     }
 };
 export const desactivar = async (id) => {

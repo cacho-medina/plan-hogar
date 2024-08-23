@@ -7,6 +7,7 @@ import useStore from "../../store/useStore";
 import { updatePlan } from "../../store/actions/actions";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Chip, CheckboxGroup, Checkbox } from "@nextui-org/react";
 
 function PlanDetail() {
     const navigate = useNavigate();
@@ -17,8 +18,10 @@ function PlanDetail() {
         register,
     } = useForm();
     const { id } = useParams();
+    const [selected, setSelected] = useState([]);
     const [plan, setPlan] = useState({});
-    const { obtenerPlanes } = useStore();
+    const { obtenerPlanes, inventario } = useStore();
+    const inventarioActivo = inventario.filter((item) => item.isActive);
     const handleActivar = async () => {
         Swal.fire({
             title: "Estas seguro que deseas activar el plan?",
@@ -90,6 +93,7 @@ function PlanDetail() {
         setPlan(plan);
     };
     const onSubmit = async (data) => {
+        data.productosIds = selected;
         const res = await updatePlan(id, data);
         if (!res.ok) {
             const error = await res.json();
@@ -109,6 +113,7 @@ function PlanDetail() {
         }
         reset();
     };
+
     useEffect(() => {
         handlePlan();
     }, []);
@@ -120,32 +125,47 @@ function PlanDetail() {
                 </h2>
             </div>
             <div>
-                <div className="flex flex-col items-center justify-center px-2 py-5 gap-3 sm:gap-4 sm:flex-row max-w-[300px] mx-auto">
-                    {plan.isActive ? (
-                        <button
-                            className="btn-red flex items-center justify-center gap-2"
-                            onClick={handleDesactivar}
-                        >
-                            <span>
-                                <DeleteIcon />
-                            </span>
-                            Desactivar
-                        </button>
-                    ) : (
-                        <button
-                            className="btn-green flex items-center justify-center gap-2"
-                            onClick={handleActivar}
-                        >
-                            <span>
-                                <Activate />
-                            </span>
-                            Activar
-                        </button>
-                    )}
+                <div className="py-8 px-3 space-y-6">
+                    <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row max-w-[300px] mx-auto">
+                        {plan.isActive ? (
+                            <button
+                                className="btn-red flex items-center justify-center gap-2"
+                                onClick={handleDesactivar}
+                            >
+                                <span>
+                                    <DeleteIcon />
+                                </span>
+                                Desactivar
+                            </button>
+                        ) : (
+                            <button
+                                className="btn-green flex items-center justify-center gap-2"
+                                onClick={handleActivar}
+                            >
+                                <span>
+                                    <Activate />
+                                </span>
+                                Activar
+                            </button>
+                        )}
+                    </div>
+                    <div className="flex items-center justify-center flex-wrap gap-2">
+                        {plan.Productos?.map((item) => (
+                            <Chip
+                                key={item.id}
+                                className="capitalize cursor-default"
+                                color="secondary"
+                                size="lg"
+                                variant="flat"
+                            >
+                                {item.nombre}
+                            </Chip>
+                        ))}
+                    </div>
                 </div>
                 <div className="border-t-2 p-4">
                     <h3 className="text-center font-semibold text-3xl">
-                        Editar nombre de plan
+                        Editar datos del plan
                     </h3>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
@@ -170,6 +190,25 @@ function PlanDetail() {
                                     {errors.nombre.message}
                                 </p>
                             )}
+                        </div>
+                        <div>
+                            <div className="flex flex-col gap-3">
+                                <CheckboxGroup
+                                    label="Seleccione los productos del plan"
+                                    color="secondary"
+                                    value={selected}
+                                    onValueChange={setSelected}
+                                >
+                                    {inventarioActivo.map((item) => (
+                                        <Checkbox
+                                            key={item.nombre}
+                                            value={item.id}
+                                        >
+                                            {item.nombre}
+                                        </Checkbox>
+                                    ))}
+                                </CheckboxGroup>
+                            </div>
                         </div>
                         <button className="btn-cyan">Actualizar</button>
                     </form>

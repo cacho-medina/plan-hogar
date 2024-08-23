@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         fontWeight: 700,
     },
 });
-function ReciboPago({ item, formatDate }) {
+function ReciboPago({ item, formatDate, info }) {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -103,10 +103,13 @@ function ReciboPago({ item, formatDate }) {
                 </View>
                 <View style={styles.data}>
                     <Text style={styles.row}>
-                        Cliente: {item.ClientPlan?.Client?.nombre}
+                        Cliente:{" "}
+                        {item.ClientPlan?.Client?.nombre || info.cliente}
                     </Text>
                     <div style={styles.form}>
-                        <Text>Plan: {item.ClientPlan?.Plan?.nombre}</Text>
+                        <Text>
+                            Plan: {item.ClientPlan?.Plan?.nombre || info.plan}
+                        </Text>
                         <Text>Cuota nro: {item.numeroCuota}</Text>
                     </div>
                     <div style={styles.form}>

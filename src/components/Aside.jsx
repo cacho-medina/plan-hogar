@@ -4,7 +4,7 @@ import { logout } from "../helpers/logout";
 function Aside({ setUserLogged }) {
     return (
         <aside className="hidden md:flex md:w-60 bg-gris flex-col items-stretch justify-between">
-            <ul className="p-2 md:mt-8 md:py-4 md:px-6 flex flex-col items-stretch justify-center gap-4 md:gap-8 md:text-xl">
+            <ul className="p-2 md:mt-8 md:py-4 md:px-6 flex flex-col items-stretch justify-center gap-4 md:gap-6 md:text-xl md:sticky md:top-2">
                 <li>
                     <NavLink to="/" className="navlink">
                         <img
@@ -38,6 +38,18 @@ function Aside({ setUserLogged }) {
                         />
                         <h4 className="text-xl text-gris-oscuro font-semibold">
                             Productos
+                        </h4>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/soporte" className="navlink">
+                        <img
+                            src="/utils/soporte.svg"
+                            alt="logo soporte"
+                            className="w-6"
+                        />
+                        <h4 className="text-xl text-gris-oscuro font-semibold">
+                            Soporte
                         </h4>
                     </NavLink>
                 </li>

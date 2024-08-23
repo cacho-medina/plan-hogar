@@ -23,10 +23,17 @@ const columns = [
 
 function Home() {
     const { onOpen, onClose, isOpen, onOpenChange } = useDisclosure();
-    const { clientes, obtenerClientes, obtenerPagos, pagos, obtenerPlanes } =
-        useStore();
+    const {
+        clientes,
+        obtenerClientes,
+        obtenerPagos,
+        pagos,
+        obtenerPlanes,
+        obtenerInventario,
+    } = useStore();
     useEffect(() => {
         obtenerClientes();
+        obtenerInventario();
         obtenerPagos();
         obtenerPlanes();
     }, []);

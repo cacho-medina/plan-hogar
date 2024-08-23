@@ -7,7 +7,7 @@ const statusColorMap = {
     false: "danger",
 };
 
-function Row({ plan }) {
+function Row({ plan, inventario }) {
     return (
         <>
             <tr className="transition-colors hover:bg-neutral-50">
@@ -23,7 +23,9 @@ function Row({ plan }) {
                     </Chip>
                 </td>
                 <td className="px-6 py-3 flex justify-center">
-                    <Link to={`/plan/${plan.id}`}>
+                    <Link
+                        to={`/${inventario ? "inventario" : "plan"}/${plan.id}`}
+                    >
                         <span className="text-lg md:text-xl text-default-400 cursor-pointer active:opacity-50 transition-colors hover:text-cyan-500 hover:font-bold">
                             <EditIcon />
                         </span>

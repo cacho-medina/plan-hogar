@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getClienteById } from "../../store/actions/actions";
-import { Chip } from "@nextui-org/react";
 import TablaPagosCliente from "../../components/ui/TablaPagosCliente";
+import { Chip, Accordion, AccordionItem } from "@nextui-org/react";
 
 const statusColorMap = {
     true: "success",
@@ -51,11 +51,26 @@ function ClienteDetail() {
                         Historial de pagos
                     </h3>
                     <div className="max-w-[700px] mx-auto">
-                        {cliente?.planes?.map((plan, index) => {
-                            return (
-                                <TablaPagosCliente key={index} pagos={plan} />
-                            );
-                        })}
+                        <Accordion variant="splitted">
+                            {cliente?.planes?.map((plan, index) => {
+                                return (
+                                    <AccordionItem
+                                        key={index}
+                                        aria-label="Lista de pagos del plan"
+                                        startContent={
+                                            <span className="font-semibold text-xl">
+                                                {plan?.plan?.nombre}
+                                            </span>
+                                        }
+                                    >
+                                        <TablaPagosCliente
+                                            pagos={plan}
+                                            cliente={cliente.cliente?.nombre}
+                                        />
+                                    </AccordionItem>
+                                );
+                            })}
+                        </Accordion>
                     </div>
                 </div>
             </div>

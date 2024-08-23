@@ -12,6 +12,8 @@ import { useState } from "react";
 import ClienteDetail from "./pages/Clientes/ClienteDetail";
 import PlanDetail from "./pages/Planes/PlanDetail";
 import Registro from "./pages/Pagos/Registro";
+import Detail from "./pages/Producto/Detail";
+import Soporte from "./pages/Soporte";
 
 function App() {
     const { pathname } = useLocation();
@@ -44,6 +46,15 @@ function App() {
                         />
                         <Route
                             exac
+                            path="/soporte"
+                            element={
+                                <ProtectedRoutes>
+                                    <Soporte />
+                                </ProtectedRoutes>
+                            }
+                        />
+                        <Route
+                            exac
                             path="/planes"
                             element={
                                 <ProtectedRoutes>
@@ -66,6 +77,15 @@ function App() {
                             element={
                                 <ProtectedRoutes>
                                     <Productos />
+                                </ProtectedRoutes>
+                            }
+                        />
+                        <Route
+                            exac
+                            path="/inventario/:id"
+                            element={
+                                <ProtectedRoutes>
+                                    <Detail />
                                 </ProtectedRoutes>
                             }
                         />

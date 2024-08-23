@@ -10,6 +10,7 @@ import {
 import { useState, useMemo } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ReciboPago from "./Pagos/ReciboPago";
+import Loader from "./Loader";
 
 function TablaPagos({ pagos }) {
     const [page, setPage] = useState(1);
@@ -85,7 +86,7 @@ function TablaPagos({ pagos }) {
                                 >
                                     {({ loading, url, error, blob }) =>
                                         loading ? (
-                                            <button>Cargando..</button>
+                                            <Loader />
                                         ) : (
                                             <button className="transition hover:scale-110">
                                                 <span>

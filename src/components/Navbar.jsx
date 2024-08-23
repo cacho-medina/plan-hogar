@@ -100,6 +100,22 @@ function Navbar({ setUserLogged }) {
                                 </h4>
                             </NavLink>
                         </li>
+                        <li className="navbar">
+                            <NavLink
+                                to="/soporte"
+                                className="barlink"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <img
+                                    src="/utils/soporte.svg"
+                                    alt="logo soporte"
+                                    className="w-6 sm:w-8"
+                                />
+                                <h4 className="text-gris-oscuro text-2xl sm:text-3xl">
+                                    Soporte
+                                </h4>
+                            </NavLink>
+                        </li>
                         <li className="mt-auto">
                             <button
                                 className="text-white p-2 px-8 w-full rounded-xl font-bold  bg-red-600"

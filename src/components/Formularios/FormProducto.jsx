@@ -1,32 +1,19 @@
-import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    CheckboxGroup,
-    Checkbox,
-} from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
-import { postPlan } from "../../store/actions/actions";
+import { postProducto } from "../../store/actions/actions";
 import useStore from "../../store/useStore";
 import Swal from "sweetalert2";
-import { useState } from "react";
 
-export default function FormPlan({ isOpen, onOpenChange, onClose }) {
+function FormProducto({ isOpen, onOpenChange, onClose }) {
     const {
         reset,
         formState: { errors },
         handleSubmit,
         register,
     } = useForm();
-    const { obtenerPlanes, inventario } = useStore();
-    const [selected, setSelected] = useState([]);
-    const inventarioActivo = inventario.filter((item) => item.isActive);
-
+    const { obtenerInventario } = useStore();
     const onSubmit = async (data) => {
-        data.productosIds = selected;
-
-        const res = await postPlan(data);
+        const res = await postProducto(data);
         if (!res.ok) {
             const error = await res.json();
             Swal.fire({
@@ -37,10 +24,10 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
         } else {
             Swal.fire({
                 title: "Listo!",
-                text: "Plan creado con exito!",
+                text: "Producto creado con exito!",
                 icon: "success",
             });
-            obtenerPlanes();
+            obtenerInventario();
             onClose();
         }
         reset();
@@ -59,7 +46,7 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
                 {(onClose) => (
                     <>
                         <ModalHeader className="flex flex-col gap-1 text-2xl">
-                            Registro de nuevo Plan
+                            Registro de nuevo Producto
                         </ModalHeader>
                         <ModalBody>
                             <form
@@ -69,20 +56,15 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
                                 <div>
                                     <input
                                         type="text"
-                                        placeholder="Nombre del plan..."
+                                        placeholder="Nombre del producto..."
                                         className="input-form"
                                         {...register("nombre", {
                                             required:
-                                                "ingrese el nombre del plan",
+                                                "ingrese el nombre del producto",
                                             minLength: {
                                                 value: 5,
                                                 message:
                                                     "Debe ingresar como minimo 5 caracteres",
-                                            },
-                                            maxLength: {
-                                                value: 100,
-                                                message:
-                                                    "Debe ingresar como maximo 100 caracteres",
                                             },
                                         })}
                                     />
@@ -93,25 +75,27 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
                                     )}
                                 </div>
                                 <div>
-                                    <div className="flex flex-col gap-3">
-                                        <CheckboxGroup
-                                            label="Seleccione los productos del plan"
-                                            color="secondary"
-                                            value={selected}
-                                            onValueChange={setSelected}
-                                        >
-                                            {inventarioActivo.map((item) => (
-                                                <Checkbox
-                                                    key={item.nombre}
-                                                    value={item.id}
-                                                >
-                                                    {item.nombre}
-                                                </Checkbox>
-                                            ))}
-                                        </CheckboxGroup>
-                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Cantidad en stock..."
+                                        className="input-form"
+                                        {...register("cantidad", {
+                                            required:
+                                                "ingrese el stock del producto",
+                                            min: {
+                                                value: 1,
+                                                message:
+                                                    "Debe ingresar un numero mayor o igual a 1",
+                                            },
+                                        })}
+                                    />
+                                    {errors.cantidad && (
+                                        <p className="text-red-500 font-semibold">
+                                            {errors.cantidad.message}
+                                        </p>
+                                    )}
                                 </div>
-                                <button className="btn-cyan">Crear</button>
+                                <button className="btn-rojo">Crear</button>
                             </form>
                         </ModalBody>
                     </>
@@ -120,3 +104,5 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
         </Modal>
     );
 }
+
+export default FormProducto;
