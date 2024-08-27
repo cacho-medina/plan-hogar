@@ -21,7 +21,7 @@ function FormPago() {
             const error = await res.json();
             Swal.fire({
                 title: "Error",
-                text: `${error.message}`,
+                text: `${error.message || "No se pudo registrar el pago"}`,
                 icon: "error",
             });
         } else {
@@ -39,29 +39,6 @@ function FormPago() {
             className="flex flex-col justify-center gap-4 my-4 md:max-w-[600px] md:mx-auto"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <div>
-                <input
-                    type="text"
-                    placeholder="Nombre completo..."
-                    className="input-form"
-                    {...register("nombre", {
-                        required: "ingrese el nombre y apellido",
-                        minLength: {
-                            value: 5,
-                            message: "Debe ingresar como minimo 5 caracteres",
-                        },
-                        maxLength: {
-                            value: 100,
-                            message: "Debe ingresar como maximo 100 caracteres",
-                        },
-                    })}
-                />
-                {errors.nombre && (
-                    <p className="text-red-500 font-semibold">
-                        {errors.nombre.message}
-                    </p>
-                )}
-            </div>
             <div>
                 <input
                     type="text"

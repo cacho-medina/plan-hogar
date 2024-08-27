@@ -31,7 +31,7 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
             const error = await res.json();
             Swal.fire({
                 title: "Error",
-                text: `${error.message}`,
+                text: `${error.message || "Error al registra plan"}`,
                 icon: "error",
             });
         } else {
