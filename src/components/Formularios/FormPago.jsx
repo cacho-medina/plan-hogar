@@ -19,6 +19,7 @@ function FormPago() {
         const res = await postPago(data);
         if (!res.ok) {
             const error = await res.json();
+            console.log(error);
             Swal.fire({
                 title: "Error",
                 text: `${error.message || "No se pudo registrar el pago"}`,

@@ -1,7 +1,7 @@
 import useStore from "../store/useStore";
 import FormPlan from "../components/Formularios/FormPlan";
 import { useDisclosure } from "@nextui-org/react";
-import Row from "../components/ui/Plan/Row";
+import Tabla from "../components/Tabla";
 
 function Planes() {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -26,29 +26,8 @@ function Planes() {
                             Agregar nuevo Plan
                         </button>
                     </div>
-                    <div className="max-w-[650px] lg:mx-auto my-6 bg-gris rounded-xl overflow-hidden mx-auto shadow-small">
-                        <div className="bg-white py-4 sm:px-4">
-                            <table className="min-w-full text-sm text-center rounded-lg cursor-default overflow-hidden">
-                                <thead className="bg-gris text-gray-400">
-                                    <tr className="">
-                                        <th scope="col" className="px-6 py-3">
-                                            Nombre
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Estado
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Opciones
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {planes.map((item) => (
-                                        <Row plan={item} key={item.id} />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="max-w-[700px] lg:mx-auto my-6">
+                        <Tabla info={planes}></Tabla>
                     </div>
                 </div>
             </div>

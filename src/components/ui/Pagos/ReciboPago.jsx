@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         paddingBottom: "20px",
     },
     title: {
-        fontWeight: 500,
-        fontSize: 18,
+        fontWeight: 800,
+        fontSize: 20,
     },
     text14: {
         fontSize: 14,
@@ -89,17 +89,14 @@ function ReciboPago({ item, formatDate, info }) {
                     <div style={styles.info}>
                         <Text>CASA CENTRAL</Text>
                         <Text>Fausto Toranzo 1ra. Cuadra</Text>
-                        <Text>Belgrano 420 *Frente Plaza Principal*</Text>
                         <Text>Santa Maria, Catamarca</Text>
-                        <Text>Tel. Fijo: (3838)424111 - Cel. 3838497218</Text>
-                        <Text>Suc. Amaicha del Valle (Tucuman)</Text>
+                        <Text>Cel. 3838-415859</Text>
                     </div>
                 </View>
                 <View style={styles.infoRecibo}>
                     <Text style={styles.title}>
                         Recibo de cobranza Plan Hogar
                     </Text>
-                    <Text style={styles.text14}>CUIT: 30-71677818-1</Text>
                 </View>
                 <View style={styles.data}>
                     <Text style={styles.row}>

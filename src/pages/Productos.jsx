@@ -1,5 +1,5 @@
 import useStore from "../store/useStore";
-import Row from "../components/ui/Plan/Row";
+import Tabla from "../components/Tabla";
 import { useDisclosure } from "@nextui-org/react";
 import FormProducto from "../components/Formularios/FormProducto";
 
@@ -27,33 +27,8 @@ function Productos() {
                             Agregar Producto
                         </button>
                     </div>
-                    <div className="max-w-[650px] lg:mx-auto my-6 bg-gris rounded-xl overflow-hidden mx-auto shadow-small">
-                        <div className="bg-white py-4 sm:px-4">
-                            <table className="min-w-full text-sm text-center rounded-lg cursor-default overflow-hidden">
-                                <thead className="bg-gris text-gray-400">
-                                    <tr className="">
-                                        <th scope="col" className="px-6 py-3">
-                                            Nombre
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Estado
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Opciones
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {inventario.map((item) => (
-                                        <Row
-                                            inventario={true}
-                                            plan={item}
-                                            key={item.id}
-                                        />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="max-w-[700px] lg:mx-auto my-6">
+                        <Tabla inventario={true} info={inventario}></Tabla>
                     </div>
                 </div>
             </div>

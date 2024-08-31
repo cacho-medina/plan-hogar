@@ -131,7 +131,7 @@ function Detail() {
         const producto = await getProductoById(id);
         setProducto(producto);
     };
-    console.log(producto);
+
     useEffect(() => {
         handleProducto();
     }, []);

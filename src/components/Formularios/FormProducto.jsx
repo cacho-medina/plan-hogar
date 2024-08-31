@@ -62,9 +62,9 @@ function FormProducto({ isOpen, onOpenChange, onClose }) {
                                             required:
                                                 "ingrese el nombre del producto",
                                             minLength: {
-                                                value: 5,
+                                                value: 4,
                                                 message:
-                                                    "Debe ingresar como minimo 5 caracteres",
+                                                    "Debe ingresar como minimo 4 caracteres",
                                             },
                                         })}
                                     />
