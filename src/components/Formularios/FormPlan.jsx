@@ -83,7 +83,7 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
                         <ModalHeader className="flex flex-col gap-1 text-2xl">
                             Registro de nuevo Plan
                         </ModalHeader>
-                        <ModalBody>
+                        <ModalBody className="max-h-[600px] overflow-y-scroll">
                             <form
                                 className="flex flex-col justify-center gap-4 my-4"
                                 onSubmit={handleSubmit(onSubmit)}
