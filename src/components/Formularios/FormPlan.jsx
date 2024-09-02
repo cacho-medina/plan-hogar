@@ -3,8 +3,8 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    CheckboxGroup,
-    Checkbox,
+    Select,
+    SelectItem,
 } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { postPlan } from "../../store/actions/actions";
@@ -20,11 +20,33 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
         register,
     } = useForm();
     const { obtenerPlanes, inventario } = useStore();
-    const [selected, setSelected] = useState([]);
     const inventarioActivo = inventario.filter((item) => item.isActive);
 
+    const [productos, setProductos] = useState([{ idProd: "", cantidad: 1 }]);
+    const handleInputChange = (index, e) => {
+        const newProducts = productos.map((product, i) => {
+            if (i === index) {
+                return { ...product, [e.target.name]: e.target.value };
+            }
+            return product;
+        });
+        setProductos(newProducts);
+    };
+    const handleAddProducts = () => {
+        setProductos([
+            ...productos,
+            {
+                idProd: "",
+                cantidad: 1,
+            },
+        ]);
+    };
     const onSubmit = async (data) => {
-        data.productosIds = selected;
+        // Filtrar los productos incompletos
+        const filteredProducts = productos.filter(
+            (product) => product.idProd !== ""
+        );
+        data.productos = filteredProducts;
 
         const res = await postPlan(data);
         if (!res.ok) {
@@ -92,26 +114,59 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
                                         </p>
                                     )}
                                 </div>
-                                <div>
-                                    <div className="flex flex-col gap-3">
-                                        <CheckboxGroup
-                                            label="Seleccione los productos del plan"
-                                            color="secondary"
-                                            value={selected}
-                                            onValueChange={setSelected}
-                                        >
-                                            {inventarioActivo.map((item) => (
-                                                <Checkbox
-                                                    key={item.nombre}
-                                                    value={item.id}
-                                                >
-                                                    {item.nombre}
-                                                </Checkbox>
-                                            ))}
-                                        </CheckboxGroup>
+                                {productos.map((prod, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex flex-col items-stretch md:flex-row md:items-center justify-center gap-2"
+                                    >
+                                        <div className="w-full">
+                                            <Select
+                                                label="Seleccione un producto"
+                                                name="idProd"
+                                                onChange={(event) =>
+                                                    handleInputChange(
+                                                        index,
+                                                        event
+                                                    )
+                                                }
+                                            >
+                                                {inventarioActivo.map(
+                                                    (item) => (
+                                                        <SelectItem
+                                                            key={item.id}
+                                                            value={item.id}
+                                                        >
+                                                            {item.nombre}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </Select>
+                                        </div>
+                                        <div>
+                                            <input
+                                                className="input-form"
+                                                type="number"
+                                                placeholder="cantidad"
+                                                name="cantidad"
+                                                onChange={(event) =>
+                                                    handleInputChange(
+                                                        index,
+                                                        event
+                                                    )
+                                                }
+                                                value={prod.cantidad}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                <button className="btn-cyan">Crear</button>
+                                ))}
+                                <button
+                                    type="button"
+                                    className="btn-secondary"
+                                    onClick={handleAddProducts}
+                                >
+                                    Agregar producto
+                                </button>
+                                <button className="btn-cyan mt-5">Crear</button>
                             </form>
                         </ModalBody>
                     </>

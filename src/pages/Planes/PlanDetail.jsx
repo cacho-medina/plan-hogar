@@ -7,7 +7,7 @@ import useStore from "../../store/useStore";
 import { updatePlan } from "../../store/actions/actions";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { Chip, CheckboxGroup, Checkbox } from "@nextui-org/react";
+import { Chip, Select, SelectItem } from "@nextui-org/react";
 
 function PlanDetail() {
     const navigate = useNavigate();
@@ -18,7 +18,27 @@ function PlanDetail() {
         register,
     } = useForm();
     const { id } = useParams();
-    const [selected, setSelected] = useState([]);
+
+    const [productos, setProductos] = useState([{ idProd: "", cantidad: 1 }]);
+    const handleInputChange = (index, e) => {
+        const newProducts = productos.map((product, i) => {
+            if (i === index) {
+                return { ...product, [e.target.name]: e.target.value };
+            }
+            return product;
+        });
+        setProductos(newProducts);
+    };
+    const handleAddProducts = () => {
+        setProductos([
+            ...productos,
+            {
+                idProd: "",
+                cantidad: 1,
+            },
+        ]);
+    };
+
     const [plan, setPlan] = useState({});
     const { obtenerPlanes, inventario } = useStore();
     const inventarioActivo = inventario.filter((item) => item.isActive);
@@ -93,7 +113,11 @@ function PlanDetail() {
         setPlan(plan);
     };
     const onSubmit = async (data) => {
-        data.productosIds = selected;
+        // Filtrar los productos incompletos
+        const filteredProducts = productos.filter(
+            (product) => product.idProd !== ""
+        );
+        data.productos = filteredProducts;
         const res = await updatePlan(id, data);
         if (!res.ok) {
             const error = await res.json();
@@ -191,25 +215,50 @@ function PlanDetail() {
                                 </p>
                             )}
                         </div>
-                        <div>
-                            <div className="flex flex-col gap-3">
-                                <CheckboxGroup
-                                    label="Seleccione los productos del plan"
-                                    color="secondary"
-                                    value={selected}
-                                    onValueChange={setSelected}
-                                >
-                                    {inventarioActivo.map((item) => (
-                                        <Checkbox
-                                            key={item.nombre}
-                                            value={item.id}
-                                        >
-                                            {item.nombre}
-                                        </Checkbox>
-                                    ))}
-                                </CheckboxGroup>
+                        {productos.map((prod, index) => (
+                            <div
+                                key={index}
+                                className="flex flex-col items-stretch md:flex-row md:items-center justify-center gap-2"
+                            >
+                                <div className="w-full">
+                                    <Select
+                                        label="Seleccione un producto"
+                                        name="idProd"
+                                        onChange={(event) =>
+                                            handleInputChange(index, event)
+                                        }
+                                    >
+                                        {inventarioActivo.map((item) => (
+                                            <SelectItem
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.nombre}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                                <div>
+                                    <input
+                                        className="input-form"
+                                        type="number"
+                                        placeholder="cantidad"
+                                        name="cantidad"
+                                        onChange={(event) =>
+                                            handleInputChange(index, event)
+                                        }
+                                        value={prod.cantidad}
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={handleAddProducts}
+                        >
+                            Agregar producto
+                        </button>
                         <button className="btn-cyan">Actualizar</button>
                     </form>
                 </div>

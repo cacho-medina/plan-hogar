@@ -54,7 +54,11 @@ function Tabla({ info, inventario }) {
             <TableBody emptyContent={"No hay planes registrados"}>
                 {items.map((item) => {
                     return (
-                        <TableRow plan={item} key={item.id}>
+                        <TableRow
+                            plan={item}
+                            key={item.id}
+                            className={`${item.cantidad < 4 && "bg-red-100"}`}
+                        >
                             <TableCell className="text-center font-semibold">
                                 {item.nombre}
                             </TableCell>
