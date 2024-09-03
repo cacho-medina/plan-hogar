@@ -174,6 +174,7 @@ export const postPlan = async (plan) => {
         return res;
     } catch (error) {
         console.error(error.message);
+        return error;
     }
 };
 export const desactivar = async (id) => {

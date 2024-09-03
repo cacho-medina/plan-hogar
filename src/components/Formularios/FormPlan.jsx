@@ -47,10 +47,11 @@ export default function FormPlan({ isOpen, onOpenChange, onClose }) {
             (product) => product.idProd !== ""
         );
         data.productos = filteredProducts;
-
+        console.log(data);
         const res = await postPlan(data);
         if (!res.ok) {
             const error = await res.json();
+            console.log(error);
             Swal.fire({
                 title: "Error",
                 text: `${error.message || "Error al registra plan"}`,

@@ -118,6 +118,13 @@ function PlanDetail() {
             (product) => product.idProd !== ""
         );
         data.productos = filteredProducts;
+        if (data.nombre === "" && data.productos.length == 0) {
+            return Swal.fire({
+                title: "Error",
+                text: "Ingrese el nombre del plan o los productos nuevos",
+                icon: "error",
+            });
+        }
         const res = await updatePlan(id, data);
         if (!res.ok) {
             const error = await res.json();
@@ -201,7 +208,6 @@ function PlanDetail() {
                                 className="input-form"
                                 placeholder="Ingrese el nuevo nombre..."
                                 {...register("nombre", {
-                                    required: "Ingrese el nombre que desea",
                                     minLength: {
                                         value: 4,
                                         message:
