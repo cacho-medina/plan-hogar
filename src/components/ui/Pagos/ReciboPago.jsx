@@ -111,9 +111,7 @@ function ReciboPago({ item, formatDate, info }) {
                     </div>
                     <div style={styles.form}>
                         <Text>Monto: ${item.monto}</Text>
-                        <Text>
-                            Fecha: {formatDate(item.fecha.split("T")[0])}
-                        </Text>
+                        <Text>Fecha: {formatDate(item.fecha)}</Text>
                     </div>
                     <Text style={styles.row}>Medio: {item.medio}</Text>
                     <Text style={styles.row}>Cobrador: {item.cobrador}</Text>
