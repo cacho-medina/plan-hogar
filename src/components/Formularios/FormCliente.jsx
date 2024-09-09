@@ -22,6 +22,7 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
     const planes = useStore((state) => state.planes);
     const planesActivos = planes.filter((plan) => plan.isActive);
     const onSubmit = async (data) => {
+        console.log(data);
         const res = await postClientes(data);
         if (!res.ok) {
             const error = await res.json();
@@ -47,7 +48,7 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
-            placement="center"
+            placement="top"
             backdrop="blur"
             isDismissable={false}
             isKeyboardDismissDisabled={true}
@@ -130,9 +131,26 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
                                             </SelectItem>
                                         ))}
                                     </Select>
-                                    {errors.plan && (
+                                    {errors.idPlan && (
                                         <p className="text-red-500 font-semibold">
-                                            {errors.plan.message}
+                                            {errors.idPlan.message}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <Select
+                                        label="Extension de plan"
+                                        {...register("extension", {
+                                            required:
+                                                "seleccione una opcion de extension",
+                                        })}
+                                    >
+                                        <SelectItem key={10}>10</SelectItem>
+                                        <SelectItem key={15}>15</SelectItem>
+                                    </Select>
+                                    {errors.extension && (
+                                        <p className="text-red-500 font-semibold">
+                                            {errors.extension.message}
                                         </p>
                                     )}
                                 </div>

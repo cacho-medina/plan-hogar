@@ -72,7 +72,7 @@ function TablaPagos({ pagos }) {
                                 {item.numeroCuota}
                             </TableCell>
                             <TableCell className="text-center hidden md:block">
-                                {formatDate(item.fecha.split("T")[0])}
+                                {formatDate(item.fecha)}
                             </TableCell>
                             <TableCell className="text-center">
                                 <PDFDownloadLink

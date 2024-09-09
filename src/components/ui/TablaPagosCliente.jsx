@@ -8,6 +8,7 @@ function TablaPagosCliente({ pagos, cliente }) {
         cliente,
         plan: pagos?.plan?.nombre,
     };
+
     return (
         <div className="bg-white py-4 sm:px-4">
             <ul>

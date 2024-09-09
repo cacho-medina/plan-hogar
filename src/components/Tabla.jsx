@@ -51,7 +51,7 @@ function Tabla({ info, inventario }) {
                 <TableColumn className="text-center">Estado</TableColumn>
                 <TableColumn className="text-center">Editar</TableColumn>
             </TableHeader>
-            <TableBody emptyContent={"No hay planes registrados"}>
+            <TableBody emptyContent={"No hay items registrados"}>
                 {items.map((item) => {
                     return (
                         <TableRow
