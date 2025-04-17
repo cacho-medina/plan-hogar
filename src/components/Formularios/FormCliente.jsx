@@ -146,7 +146,10 @@ export default function FormCliente({ isOpen, onOpenChange, onClose }) {
                                         })}
                                     >
                                         <SelectItem key={10}>10</SelectItem>
+                                        <SelectItem key={12}>12</SelectItem>
                                         <SelectItem key={15}>15</SelectItem>
+                                        <SelectItem key={18}>18</SelectItem>
+                                        <SelectItem key={24}>24</SelectItem>
                                     </Select>
                                     {errors.extension && (
                                         <p className="text-red-500 font-semibold">
